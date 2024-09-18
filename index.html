@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Futuristic Countdown Timer</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+
+	<link rel="stylesheet" href="styles.css">
+    <style>
+        /* Global settings for futuristic look */
+body {
+	font-family: "Orbitron", sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
+	color: #fff;
+}
+
+.timer-container {
+	text-align: center;
+	padding: 30px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
+	box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+	border: 1px solid rgba(0, 255, 255, 0.3);
+	backdrop-filter: blur(10px);
+}
+
+h1 {
+	font-size: 2.5rem;
+	letter-spacing: 5px;
+	color: #00e6e6;
+	text-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6;
+	margin-bottom: 30px;
+}
+
+#countdown {
+	display: flex;
+	justify-content: space-around;
+	padding: 10px 0;
+}
+
+.time-section {
+	margin: 0 15px;
+	text-align: center;
+}
+
+.time {
+	font-size: 4rem;
+	color: #00e6e6;
+	text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
+	display: block;
+	margin-bottom: 5px;
+	transition: transform 0.3s ease-in-out;
+}
+
+.time:hover {
+	transform: scale(1.2);
+	text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+}
+
+.label {
+	font-size: 1.2rem;
+	color: #00e6e6;
+	letter-spacing: 2px;
+}
+
+#message {
+	font-size: 1.5rem;
+	margin-top: 20px;
+	color: #ff0066;
+	text-shadow: 0 0 10px #ff0066, 0 0 20px #ff0066;
+	visibility: hidden;
+}
+
+/* Neon glow animation */
+@keyframes neon-flicker {
+	0%,
+	19%,
+	21%,
+	23%,
+	25%,
+	54%,
+	56%,
+	100% {
+		text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+	}
+	20%,
+	24%,
+	55% {
+		text-shadow: none;
+	}
+}
+
+.time,
+.label {
+	animation: neon-flicker 1.5s infinite;
+}
+
+    </style>
+</head>
+
+<body>
+	<div class="timer-container">
+		<h1>Jan 1, 2026</h1>
+		<div id="countdown">
+			<div class="time-section">
+				<span id="days" class="time"></span>
+				<span class="label">DAYS</span>
+			</div>
+			<div class="time-section">
+				<span id="hours" class="time"></span>
+				<span class="label">HOURS</span>
+			</div>
+			<div class="time-section">
+				<span id="minutes" class="time"></span>
+				<span class="label">MINUTES</span>
+			</div>
+			<div class="time-section">
+				<span id="seconds" class="time"></span>
+				<span class="label">SECONDS</span>
+			</div>
+		</div>
+		<div id="message"></div>
+	</div>
+
+	<script type="module">
+        // Set the target date and time
+const countdownDate = new Date("Dec 31, 2025 23:59:59").getTime();
+
+// Update the countdown every second
+const countdownFunction = setInterval(() => {
+	const now = new Date().getTime();
+	const distance = countdownDate - now;
+
+	// Time calculations for days, hours, minutes, and seconds
+	const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+	const hours = Math.floor(
+		(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+	);
+	const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+	// Update the HTML with the calculated time
+	document.getElementById("days").innerHTML = days;
+	document.getElementById("hours").innerHTML = ("0" + hours).slice(-2);
+	document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2);
+	document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
+
+	// When the countdown is finished, display a message
+	if (distance < 0) {
+		clearInterval(countdownFunction);
+		document.getElementById("countdown").style.display = "none";
+		const message = document.getElementById("message");
+		message.innerHTML = "Welcome to the Future!";
+		message.style.visibility = "visible";
+	}
+}, 1000);
+
+    </script>
+</body>
+
+</html>
